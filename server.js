@@ -54,25 +54,23 @@ function handleGetTypes(req, res) {
 
 app.get("/types", handleGetTypes);
 
-function handleGetPokemon(req, res) {
+app.get('/pokemon', function handleGetPokemon(req, res) {
   let response = POKEDEX.pokemon;
 
   if (req.query.name) {
-    response = response.filter(pokemon => {
-      pokemon.name.toLowerCase().includes(req.query.name.toLowerCase());
-    });
+    response = response.filter(pokemon =>
+      pokemon.name.toLowerCase().includes(req.query.name.toLowerCase())
+    );
   }
 
   if (req.query.type) {
-    response = response.filter(pokemon => {
-      pokemon.type.includes(req.query.type);
-    });
+    response = response.filter(pokemon =>
+      pokemon.type.includes(req.query.type)
+    );
   }
 
-  res.send(response);
-}
-
-app.get("/pokemon", handleGetPokemon);
+  res.json(response);
+});
 
 app.use((error, req, res, next) => {
   let response;
